@@ -1,0 +1,26 @@
+{
+	"manifest_version": 2,
+
+	"name": "CH1 Page",
+	"description": "This extension puts all of college humor content on one page. Beta",
+	"version": "1.0",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "script.html"
+	},
+	"icons":
+	{
+		"128": "icon128.png",
+		"16": "icon16.png",
+		"48": "icon48.png"
+	},
+	"web_accessible_resources": ["logo.png"],
+	"permissions": ["activeTab"],
+	"content_scripts": [
+		{
+			"matches": ["*://*.collegehumor.com/*"],
+			"js": ["jquery-2.1.1.min.js", "script.js"],
+			"run_at": "document_end"
+		}
+	]
+}
