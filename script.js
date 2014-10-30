@@ -14,21 +14,27 @@ $(document).ready(function() {
 	for (var i = currentPage + 1; i <= numPages; i++) {
 		$.ajax({
 			type: 'get',
+			async: false,
 			url: getUrl + i,
 			success: function (result) {
-				postToCH(result);
+				postToCH(result, i);
 			},
 		});
 		if(i==numPages){
 			final();
 		}
 	}
-	function postToCH(content) {
+	function postToCH(content, num) {
+		console.log(num);
 		var $data = $(content);
 		$data.find('#comments').remove();
 		$data.find('.pagination').remove();
 		$data = $data.find('.post-content').html();
-		$('.primary').append($data);
+		$('.primary').append("<div id='ch1-"+num+"'>"+$data+"</div>");
+		$('#ch1-'+num).each(function (i) {
+			var ids = $('[id="' + this.id + '"]');
+			if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
+		});
 	}
 	function final(){
 		$('.pagination').remove();
