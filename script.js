@@ -2,8 +2,21 @@
  * Created by golrizp on 10/30/14.
  */
 $(document).ready(function() {
-	var numPages = $('a[data-ga-category=Pagination]').eq(-2).text();
-	var currentPage = parseInt($('.selected').text());
+	var numPages;
+	if($('a[data-ga-category=Pagination]').eq(-2).text()!==""){
+		numPages = $('a[data-ga-category=Pagination]').eq(-2).text();
+	}
+	else{
+		numPages = $('.total').text().split('of ')[1];
+	}
+	numPages = parseInt(numPages);
+	var currentPage;
+	if(parseInt($('.selected').text()) > 0) {
+		currentPage = parseInt($('.selected').text());
+	}
+	else{
+		currentPage = parseInt($('.total').text().split(' of ')[0].split('Page ')[1]);
+	}
 	var getUrl = window.location.href.split('?')[0].split('page:')[0];
 	if (getUrl.substr(-1) === "/") {
 		getUrl += "page:";
